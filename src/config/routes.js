@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router';
-import Root from '../screens/index';
-import Bookshelf from '../screens/Bookshelf/index';
-import Book from '../screens/Bookshelf/screens/Book/index';
-import About from '../screens/About/index';
-import Admin from '../screens/Admin/index';
-import AdminBookshelf from '../screens/Admin/screens/Bookshelf/index';
-import AdminAddBook from '../screens/Admin/screens/Bookshelf/screens/AddBook/index';
+import Root from '../screens';
+import Bookshelf from '../screens/Bookshelf';
+import Book from '../screens/Bookshelf/screens/Book';
+import About from '../screens/About';
+import Admin from '../screens/Admin';
+import AdminBookshelf from '../screens/Admin/screens/Bookshelf';
+import AdminAddBook from '../screens/Admin/screens/Bookshelf/screens/AddBook';
 
 export default (
   <Route path="/" component={Root}>
