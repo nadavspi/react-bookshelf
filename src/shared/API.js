@@ -15,3 +15,19 @@ export function getJSON(url, cb) {
     }
   });
 }
+
+export function postJSON(url, body, cb) {
+  xhr({
+    url: `${API}/${url}`,
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }, (err, response, body) => {
+    console.log(response.statusCode);
+    if (response.statusCode === 201) {
+      cb();
+    }
+  });
+}

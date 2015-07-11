@@ -9,10 +9,9 @@ export default React.createClass({
   render () {
     return (
       <div>
+        <h1>Admin</h1>
         <nav>
-          <Link to="/bookshelf">Bookshelf</Link>{' '}
-          <Link to="/about">About</Link>{' '}
-          <Link to="/admin">Admin</Link>{' '}
+          <Link to="/admin/bookshelf/add">Add a book</Link>
         </nav>
         {this.props.children}
       </div>
