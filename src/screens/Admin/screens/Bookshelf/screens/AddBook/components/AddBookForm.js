@@ -1,7 +1,7 @@
 import React from 'react';
 import slug from 'slug';
-import { postJSON } from 'API';
-
+/* import { postJSON } from 'API';
+ */
 export default React.createClass({
   getInitialState () {
     return {
@@ -27,9 +27,9 @@ export default React.createClass({
       ...this.state
     };
 
-    postJSON('books', data, () => {
-      this.setState(this.getInitialState);
-    });
+    // postJSON('books', data, () => {
+    //   this.setState(this.getInitialState);
+    // });
   },
 
   render () {

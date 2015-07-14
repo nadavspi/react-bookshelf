@@ -1,43 +1,22 @@
 import React from 'react';
-import { getJSON } from 'API';
 
 export default React.createClass({
   propTypes: {
-    params: React.PropTypes.object.isRequired
-  },
-
-  getInitialState () {
-    return {
-      error: null,
-      book: {}
-    };
+    params: React.PropTypes.object.isRequired,
+    books: React.PropTypes.array.isRequired,
+    actions: React.PropTypes.object.isRequired
   },
 
   componentDidMount () {
     const { id } = this.props.params;
-    getJSON(`books/${id}`, this.loadBook);
-  },
-
-  loadBook (err, book) {
-    if (err) {
-      this.setState({
-        error: err
-      });
-    } else {
-      this.setState({
-        error: null,
-        book
-      });
-    }
+    this.props.actions.loadBook(id);
   },
 
   render () {
-    const { book } = this.state;
+    console.log(this.props.books);
 
     return (
       <div>
-        <h1>{book.title}</h1>
-        <h2>{book.author}</h2>
         Woohoo
       </div>
     );

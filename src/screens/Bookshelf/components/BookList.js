@@ -1,34 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { getJSON } from 'API';
 
 export default React.createClass({
-  getInitialState () {
-    return {
-      error: null,
-      books: []
-    };
+  propTypes: {
+    books: React.PropTypes.array.isRequired,
+    actions: React.PropTypes.object.isRequired
   },
 
-  componentDidMount () {
-    getJSON('books', this.loadBooks);
+  componentDidMount() {
+    this.props.actions.loadBooks();
   },
 
-  loadBooks (err, books) {
-    if (err) {
-      this.setState({
-        error: err
-      });
-    } else {
-      this.setState({
-        error: null,
-        books
-      });
-    }
-  },
-
-  render () {
-    const books = this.state.books.map((book) => {
+  render() {
+    console.log(this.props);
+    const books = this.props.books.map((book) => {
       return (
         <li key={book.id}>
           <Link to={`/bookshelf/${book.id}`}>
@@ -40,7 +25,6 @@ export default React.createClass({
 
     return (
       <div>
-        {this.state.error}
         <h2>I am the book list</h2>
 	<ol>
           {books}
