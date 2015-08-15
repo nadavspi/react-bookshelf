@@ -3,20 +3,18 @@ import { Link } from 'react-router';
 
 export default React.createClass({
   propTypes: {
-    books: React.PropTypes.array.isRequired,
-    actions: React.PropTypes.object.isRequired
-  },
-
-  componentDidMount() {
-    this.props.actions.loadBooks();
+    items: React.PropTypes.array.isRequired,
+    data: React.PropTypes.object.isRequired
   },
 
   render() {
-    console.log(this.props);
-    const books = this.props.books.map((book) => {
+    const { items, data } = this.props;
+    const books = items.map((id) => {
+      const book = data[id];
+
       return (
-        <li key={book.id}>
-          <Link to={`/bookshelf/${book.id}`}>
+        <li key={id}>
+          <Link to={`/bookshelf/${id}`}>
             {book.title}
           </Link>
         </li>

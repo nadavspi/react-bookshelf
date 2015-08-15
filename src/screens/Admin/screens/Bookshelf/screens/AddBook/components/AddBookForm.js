@@ -1,8 +1,15 @@
 import React from 'react';
 import slug from 'slug';
-/* import { postJSON } from 'API';
- */
-export default React.createClass({
+import { connect } from 'react-redux';
+import { addBook } from 'actions/BookActions';
+
+// TODO: Move redux stuff up to parent so this can be dumb
+
+const AddBookForm = React.createClass({
+  propTypes: {
+    dispatch: React.PropTypes.func.isRequired
+  },
+
   getInitialState () {
     return {
       title: '',
@@ -27,9 +34,17 @@ export default React.createClass({
       ...this.state
     };
 
-    // postJSON('books', data, () => {
-    //   this.setState(this.getInitialState);
-    // });
+    this.props.dispatch(addBook(data));
+  },
+
+  renderErrorMessage() {
+    if (!this.props.errorMessage) {
+      return null;
+    }
+
+    return (
+      <h2 className="error">Error: {this.props.errorMessage}</h2>
+    );
   },
 
   render () {
@@ -37,6 +52,7 @@ export default React.createClass({
 
     return (
       <form onSubmit={this.handleSubmit}>
+        {this.renderErrorMessage()}
         <fieldset>
           <legend>Book info</legend>
 
@@ -70,3 +86,11 @@ export default React.createClass({
     );
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    errorMessage: state.errorMessage
+  };
+}
+
+export default connect(mapStateToProps)(AddBookForm);

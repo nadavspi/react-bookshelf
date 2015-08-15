@@ -1,40 +1,53 @@
 import React from 'react';
-import { Connector } from 'redux/react';
-import { bindActionCreators } from 'redux';
-import * as BookActions from 'actions/BookActions';
+import { connect } from 'react-redux';
+import { fetchBooksIfNeeded } from 'actions/BookActions';
 import BookList from './components/BookList';
 
-export default React.createClass({
+const Bookshelf = React.createClass({
   propTypes: {
-    children: React.PropTypes.object
+    children: React.PropTypes.object,
+    params: React.PropTypes.object,
+    dispatch: React.PropTypes.func.isRequired,
+    isFetching: React.PropTypes.bool.isRequired,
+    items: React.PropTypes.array.isRequired,
+    data: React.PropTypes.object.isRequired
+  },
+
+  componentDidMount() {
+    this.props.dispatch(fetchBooksIfNeeded());
   },
 
   render() {
-    return (
-      <Connector>
-        {this.renderChild}
-      </Connector>
-    );
-  },
+    const {
+      isFetching,
+      children,
+      data,
+      params,
+      items
+    } = this.props;
 
-  renderChild({ books, dispatch }) {
-    const actions = bindActionCreators(BookActions, dispatch);
+    if (isFetching) {
+      return (
+        <h1>Loading</h1>
+      );
+    }
 
     return (
       <div>
-        <h2>Bookshelf</h2>
-        {this.props.children ? (
-	  React.cloneElement(
-            this.props.children,
-	    { actions, books, ...this.props }
-	  )
+        {children ? (
+          React.cloneElement(
+            children,
+            data[params.id]
+          )
          ) : (
            <BookList
-           books={books}
-	   actions={actions}
+	     items={items}
+             data={data}
            />
          )}
       </div>
     );
-  }
+  },
 });
+
+export default connect(state => state.books)(Bookshelf);

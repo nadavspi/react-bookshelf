@@ -2,11 +2,20 @@ import React from 'react';
 import { Router } from 'react-router';
 import { history } from 'react-router/lib/BrowserHistory';
 import routes from './config/routes';
-import { createRedux } from 'redux';
-import { Provider } from 'redux/react';
-import * as stores from 'stores';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import loggerMiddleware from 'redux-logger';
+import { Provider } from 'react-redux';
+import * as reducers from 'reducers';
 
-const redux = createRedux(stores);
+const reducer = combineReducers(reducers);
+
+const createStoreWithMiddleware = applyMiddleware(
+  thunkMiddleware, // lets us dispatch() functions
+  loggerMiddleware
+)(createStore);
+
+const store = createStoreWithMiddleware(reducer);
 
 const Root = () => {
   return (
@@ -15,7 +24,7 @@ const Root = () => {
 };
 
 React.render((
-  <Provider redux={redux}>
+  <Provider store={store}>
     {Root}
   </Provider>
 ), document.getElementById('root'));

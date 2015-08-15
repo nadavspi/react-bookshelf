@@ -25,9 +25,6 @@ export function postJSON(url, body, cb) {
       'Content-Type': 'application/json'
     }
   }, (err, response, body) => {
-    console.log(response.statusCode);
-    if (response.statusCode === 201) {
-      cb();
-    }
+    cb(response.statusCode);
   });
 }
