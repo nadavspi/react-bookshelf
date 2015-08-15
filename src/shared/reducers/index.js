@@ -1,4 +1,5 @@
-import * as types from 'constants/ActionTypes';
+// relative path until I can get Mocha to resolve correctly
+import * as types from '../constants/ActionTypes';
 
 const initialState = {
   isFetching: false,

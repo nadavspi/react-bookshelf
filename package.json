@@ -5,7 +5,9 @@
   "scripts": {
     "start": "node server.js",
     "lint": "eslint src",
-    "api": "json-server --watch --port 1144 src/config/db.json"
+    "api": "json-server --watch --port 1144 src/config/db.json",
+    "test": "mocha --compilers js:babel/register --recursive",
+    "test:watch": "npm test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -33,7 +35,9 @@
     "babel-eslint": "^3.1.9",
     "babel-loader": "^5.1.2",
     "eslint-plugin-react": "^2.3.0",
+    "expect": "^1.9.0",
     "json-server": "^0.7.20",
+    "mocha": "^2.2.5",
     "react-hot-loader": "^1.2.7",
     "slug": "^0.9.1",
     "webpack": "^1.9.6",
@@ -41,6 +45,7 @@
     "xhr": "^2.0.2"
   },
   "dependencies": {
+    "babel": "^5.8.21",
     "react": "^0.13.0",
     "react-redux": "0.8.2",
     "react-router": "1.0.0-beta3",
